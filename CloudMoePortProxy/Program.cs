@@ -128,18 +128,18 @@ namespace CloudMoePortProxy
                 var bytesRead = state.SourceSocket.EndReceive(result);
                 if (bytesRead > 0)
                 {
-                    //Start an asyncronous send.
+                    // 开始异步发送
                     var sendAr = state.DestinationSocket.BeginSend(state.Buffer, 0, bytesRead, SocketFlags.None, null, null);
 
-                    //Get or create a new buffer for the state object.
+                    // 给state获取或者创建新缓冲
                     var oldBuffer = state.ReplaceBuffer();
 
                     state.SourceSocket.BeginReceive(state.Buffer, 0, state.Buffer.Length, 0, OnDataReceive, state);
 
-                    //Wait for the send to finish.
+                    // 等待发送完成
                     state.DestinationSocket.EndSend(sendAr);
 
-                    //Return byte[] to the pool.
+                    // 返回 byte[] 给缓存池
                     state.AddBufferToPool(oldBuffer);
                 }
             }
