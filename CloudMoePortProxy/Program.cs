@@ -107,8 +107,8 @@ namespace CloudMoePortProxy
                 catch
                 {
                     source.Close();
-                    Program.ConsoleWriteLine("[I] Forwarder Target Disconnected, wait for 3s.");
-                    Thread.Sleep(3000);
+                    //Program.ConsoleWriteLine("[I] Forwarder Target Disconnected, wait for 3s.");
+                    //Thread.Sleep(3000);
                 }
             }
         }
