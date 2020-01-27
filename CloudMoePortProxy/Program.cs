@@ -86,7 +86,7 @@ namespace CloudMoePortProxy
         {
             Console.WriteLine("Configuration:");
             Console.WriteLine("Listen: " + local.ToString());
-            Console.WriteLine("Forwarder: " + local.ToString());
+            Console.WriteLine("Forwarder: " + remote.ToString());
             Console.WriteLine();
             Console.WriteLine("[I] Starting...");
             _mainSocket.Bind(local);
