@@ -4,6 +4,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <StartupObject>CloudMoePortProxy.Program</StartupObject>
+    <Version>1.0.1</Version>
+    <Company>CloudMoe Network</Company>
+    <Product>CloudMoe Port Proxy</Product>
+    <Authors>TGSAN</Authors>
+    <Description>CloudMoe Port Proxy</Description>
+    <Copyright>CloudMoe Network &amp; TGSAN</Copyright>
   </PropertyGroup>
 
 </Project>

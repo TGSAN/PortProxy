@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace CloudMoePortProxy
 {
@@ -94,12 +95,21 @@ namespace CloudMoePortProxy
             while (true)
             {
                 var source = _mainSocket.Accept();
-                var destination = new TcpForwarderSlim();
-                var state = new State(source, destination._mainSocket);
-                destination.Connect(remote, source);
-                Program.ConsoleWriteLine("[I] Connect " + local.ToString() + " <=> " + remote.ToString());
-                source.BeginReceive(state.Buffer, 0, state.Buffer.Length, 0, OnDataReceive, state);
-                Program.ConsoleWriteLine("[I] Disconnected " + local.ToString() + " <=> " + remote.ToString());
+                try
+                {
+                    var destination = new TcpForwarderSlim();
+                    var state = new State(source, destination._mainSocket);
+                    destination.Connect(remote, source);
+                    Program.ConsoleWriteLine("[I] Connect " + local.ToString() + " <=> " + remote.ToString());
+                    source.BeginReceive(state.Buffer, 0, state.Buffer.Length, 0, OnDataReceive, state);
+                    Program.ConsoleWriteLine("[I] Disconnected " + local.ToString() + " <=> " + remote.ToString());
+                }
+                catch
+                {
+                    source.Close();
+                    Program.ConsoleWriteLine("[I] Forwarder Target Disconnected, wait for 3s.");
+                    Thread.Sleep(3000);
+                }
             }
         }
 
